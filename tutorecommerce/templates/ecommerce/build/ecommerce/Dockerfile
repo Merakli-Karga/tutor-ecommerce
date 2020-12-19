@@ -14,19 +14,20 @@ RUN nodeenv /openedx/nodeenv --node=12.13.0 --prebuilt
 ENV PATH /openedx/nodeenv/bin:${PATH}
 
 # Install ecommerce
-ARG ECOMMERCE_REPOSITORY=https://github.com/edx/ecommerce.git
-ARG ECOMMERCE_VERSION={{ OPENEDX_COMMON_VERSION }}
+ARG ECOMMERCE_REPOSITORY=https://github.com/Merakli-Karga/ecommerce.git
+ARG ECOMMERCE_VERSION=ozogretmen.juniper.3
 RUN mkdir -p /openedx/ecommerce && \
     git clone $ECOMMERCE_REPOSITORY --branch $ECOMMERCE_VERSION --depth 1 /openedx/ecommerce
 WORKDIR /openedx/ecommerce
 
-# Fix a few issues, and improve custom server-side payment processor extensibility
-# https://github.com/edx/ecommerce/pull/3140
-# https://github.com/overhangio/ecommerce/commits/overhangio/improve-extensibility
-RUN curl https://github.com/overhangio/ecommerce/commit/79b1ff4b2be50ac86560500a85788f747ea80aaf.patch | git apply -
-RUN curl https://github.com/overhangio/ecommerce/commit/f0d57fc6fddf9ba62fdb59c445815f5914ac2cdc.patch | git apply -
-RUN curl https://github.com/overhangio/ecommerce/commit/385bcf5ac86619ed48e6c98ffc8b6f7f4ca7f917.patch | git apply -
-RUN curl https://github.com/overhangio/ecommerce/commit/e18da93ad338cfd15b8c53f83c0dd2ee6bcec372.patch | git apply -
+# Added to the repo already
+## Fix a few issues, and improve custom server-side payment processor extensibility
+## https://github.com/edx/ecommerce/pull/3140
+## https://github.com/overhangio/ecommerce/commits/overhangio/improve-extensibility
+#RUN curl https://github.com/overhangio/ecommerce/commit/79b1ff4b2be50ac86560500a85788f747ea80aaf.patch | git apply -
+#RUN curl https://github.com/overhangio/ecommerce/commit/f0d57fc6fddf9ba62fdb59c445815f5914ac2cdc.patch | git apply -
+#RUN curl https://github.com/overhangio/ecommerce/commit/385bcf5ac86619ed48e6c98ffc8b6f7f4ca7f917.patch | git apply -
+#RUN curl https://github.com/overhangio/ecommerce/commit/e18da93ad338cfd15b8c53f83c0dd2ee6bcec372.patch | git apply -
 
 # nodejs requirements (aka: "make requirements.js")
 ARG NPM_REGISTRY=https://registry.npmjs.org/
